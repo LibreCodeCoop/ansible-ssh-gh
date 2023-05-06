@@ -1,0 +1,23 @@
+---
+- hosts: dev
+  become: yes
+  tasks:
+    - name: Install php cli
+      apt:
+        name: php
+        state: present
+   
+    - name: install php curl
+      apt:
+        name: php-curl
+        state: present
+
+
+    - name: copy script
+      copy:
+        src: script.php
+        dest: .
+  
+    - name: run script in php
+      become: yes
+      ansible.builtin.shell: php script.php
